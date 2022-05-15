@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/navbar"
+    app:startDestination="@id/accueilFragment">
+
+    <fragment
+        android:id="@+id/accueilFragment"
+        android:name="com.hoby.solaitra.AccueilFragment"
+        android:label="Accueil"
+        tools:layout="@layout/fragment_accueil" />
+    <fragment
+        android:id="@+id/historiqueFragment"
+        android:name="com.hoby.solaitra.HistoriqueFragment"
+        android:label="Historique"
+        tools:layout="@layout/fragment_historique" />
+    <fragment
+        android:id="@+id/parametresFragment"
+        android:name="com.hoby.solaitra.ParametresFragment"
+        android:label="Paramètres"
+        tools:layout="@layout/fragment_parametres" />
+</navigation>

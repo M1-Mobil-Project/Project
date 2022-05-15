@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/historiqueFragment"
+        android:title="Historique"
+        android:icon="@drawable/ic_historique"/>
+    <item
+        android:id="@+id/accueilFragment"
+        android:title="Accueil"
+        android:icon="@drawable/ic_accueil"/>
+    <item
+        android:id="@+id/parametresFragment"
+        android:title="Paramètres"
+        android:icon="@drawable/ic_parametres"/>
+</menu>

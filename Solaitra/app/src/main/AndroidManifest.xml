@@ -10,9 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Solaitra">
 
-        <activity android:name=".MainActivity" android:exported="true"/>
+        <activity android:name=".view.MainActivity" android:exported="true"/>
 
-        <activity android:name=".SplashScreen" android:exported="true" android:theme="@style/Splashscreen">
+        <activity android:name=".view.SplashScreen" android:exported="true" android:theme="@style/Splashscreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

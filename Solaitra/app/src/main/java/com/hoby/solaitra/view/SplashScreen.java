@@ -1,4 +1,4 @@
-package com.hoby.solaitra;
+package com.hoby.solaitra.view;
 
 import android.content.Intent;
 import android.os.Bundle;
