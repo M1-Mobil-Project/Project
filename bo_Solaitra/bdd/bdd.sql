@@ -26,3 +26,10 @@ create table token(
     constraint token_pk primary key (id),
     constraint token_user_fk foreign key (id_user) references user(id)
 )engine=innodb;
+
+create table level_user(
+    id integer not null AUTO_INCREMENT,
+    id_user integer not null,
+    unlocked integer not null default 1,
+    constraint level_user_fk foreign key (id_user) references user(id)
+)engine=innodb;
