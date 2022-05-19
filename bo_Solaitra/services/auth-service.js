@@ -5,7 +5,7 @@ const moment = require("moment");
 async function inscription(user) {
     var db = await dbconnect.getDb();
 
-    var sql = "INSERT INTO USER (name, firstname, username, password, id_profile) VALUES ('"+user.name+"', '"+user.firstname+"', '"+user.username+"', '"+sha1(user.password)+"', '"+user.id_profile+"') ";
+    var sql = "INSERT INTO user (lastname, firstname, sex, pseudo, password) VALUES ('"+user.lastname+"', '"+user.firstname+"', '"+user.sex+"', '"+user.pseudo+"', '"+sha1(user.password)+"') ";
     console.log(sql);
     db.connect(function(err){
         db.query(sql, function(err, result){
@@ -14,8 +14,8 @@ async function inscription(user) {
         });
     });
     
-    
-    return login(user.username, user.password, db);
+    //return login(user.pseudo, user.password, db);
+    return user; 
 }
 
 async function saveToken(db, user) {
@@ -25,7 +25,7 @@ async function saveToken(db, user) {
         moment().format("YYYY-MM-DD HH:mm:ss.SSS")
     );
 
-    var sql = "INSERT INTO TOKEN (id_user, token, expiration) VALUES ('"+user.id+"', '"+token+"', '"+moment().add(1, "h").format("YYYY-MM-DD HH:mm:ss.SSS")+"') ";
+    var sql = "INSERT INTO token (id_user, token, expiration) VALUES ('"+user.id+"', '"+token+"', '"+moment().add(1, "h").format("YYYY-MM-DD HH:mm:ss.SSS")+"') ";
     
     db.connect(function(err){
         user = db.query(sql, function(err, result){
@@ -36,9 +36,9 @@ async function saveToken(db, user) {
     return token;
 }
 
-async function login(username, password, db) {
+async function login(pseudo, password, db) {
     if (db === undefined) db = await dbconnect.getDb();
-    var sql = "select * from user where username = '"+username+"' and password = '"+sha1(password)+"'";
+    var sql = "select * from user where pseudo = '"+pseudo+"' and password = '"+sha1(password)+"'";
     console.log(sql)
     var user;
 
@@ -52,12 +52,11 @@ async function login(username, password, db) {
             var token = saveToken(db, user);
             var results = {
                 token: token,
-                id_user: user.id,
-                id_profile: user.id_profile,
+                id_user: user.id
             };
             return results;
         });
-        console.log("data2"+data);
+        console.log("data2 : "+data);
     })
    
 }
@@ -74,13 +73,5 @@ async function logout(token) {
         });
     })
 }
-
-// async function findTokenUser(token){
-//     var db = await dbconnect.getDb();
-//     var tokenCollection = db.collection('token');
-//     var result = await tokenCollection.findOne({token: token, date_expiration: {$gte: new Date()}});
-//     if(!result) throw new Error("InvalidToken");
-//     return result;
-// }
 
 module.exports = {login, logout, inscription}
