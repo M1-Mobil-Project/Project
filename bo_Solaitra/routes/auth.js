@@ -7,6 +7,7 @@ router.post("/sign-up", async function (req, res) {
     authService
         .inscription(req.body)
         .then((result) => {
+            console.log("Result = " + result);
             res.json(responseBuilder.success(result));
         })
         .catch((error) => {

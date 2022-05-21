@@ -5,7 +5,7 @@ function getDb(){
         host: "localhost",
         user: "root",
         password: "",
-        database: "solaitra"
+        database: "solaitra_db"
       });
 }
 
