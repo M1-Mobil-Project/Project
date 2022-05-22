@@ -35,11 +35,12 @@ create table token(
 )engine=innodb;
 
 create table level_user(
-    id integer not null AUTO_INCREMENT,
+    id integer not null AUTO_INCREMENT primary key,
     id_user integer not null,
     unlocked integer not null default 1,
     constraint level_user_fk foreign key (id_user) references user(id)
 )engine=innodb;
+
 word (id, name, description, picture)
 
 level_user (id_user , unlocked)
@@ -51,4 +52,32 @@ answer_choice (id, id_quizz, answer_choice)
 user_answer (id_user, date, id_quizz, id_answer_choice)
 
 user_note (id, date , note)
+
+create table word(
+    id integer not null AUTO_INCREMENT primary key,
+    name varchar(150) not null,
+    description text,
+    picture varchar(300),
+    alphabet integer
+)engine=innodb;
+
+
+insert into user (lastname, firstname, sex, pseudo, password) values ('Rakoto', 'Kevin', 'M', 'Kevin',sha1('123456'));
+
+insert into level_user(id_user) values (1);
+
+insert into word ( name, alphabet) values 
+( 'arbre' , 1) ,
+( 'armoire' , 1),
+( 'arc en ciel' , 1 ),
+( 'algue' , 1),
+( 'avion' , 1);
+
+insert into word ( name, alphabet) values 
+( 'baleine' , 2) ,
+( 'bougie' , 2),
+( 'ballon' , 2 ),
+( 'boîte' , 2),
+( 'bicyclette' , 2),
+( 'brosse' , 2);
 

@@ -38,6 +38,25 @@ Level_user.findById = (id, result) => {
   });
 };
 
+Level_user.findByIdUser = (id_user, result) => {
+  sql.query(`SELECT * FROM level_user WHERE id_user = ${id_user}`, (err, res) => {
+    if (err) {
+      console.log("error: ", err);
+      result(err, null);
+      return;
+    }
+
+    if (res.length) {
+      console.log("found user: ", res[0]);
+      result(null, res[0]);
+      return;
+    }
+
+    // not found User with the id
+    result({ kind: "not_found" }, null);
+  });
+};
+
 Level_user.getAll = (title, result) => {
   let query = "SELECT * FROM level_user";
 
@@ -60,7 +79,7 @@ Level_user.getAll = (title, result) => {
 Level_user.updateById = (id, level_user, result) => {
   sql.query(
     "UPDATE level_user SET unlocked = ? WHERE id = ?",
-    [ user.username, user.password, id],
+    [ level_user.unlocked, id],
     (err, res) => {
       if (err) {
         console.log("error: ", err);
@@ -112,4 +131,4 @@ Level_user.removeAll = result => {
   });
 };
 
-module.exports = User;
+module.exports = Level_user;

@@ -1,6 +1,6 @@
-const Level_user = require("../models/level_user.model.js");
+const Word = require("../models/word.model.js");
 
-// Create and Save a new User
+// Create and Save a new Word
 exports.create = (req, res) => {
   // Validate request
   if (!req.body) {
@@ -9,14 +9,16 @@ exports.create = (req, res) => {
     });
   }
 
-  // Create a User
-  const level_user = new Level_user({
-    id_user: req.body.id_user,
-    unlocked: req.body.unlocked
+  // Create a Word
+  const word = new Word({
+    name: req.body.name,
+    description: req.body.description,
+    picture : req.body.picture,
+    alphabet : req.body.alphabet,
   });
 
   // Save user in the database
-  Level_user.create(level_user, (err, data) => {
+  Word.create(word, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -28,9 +30,9 @@ exports.create = (req, res) => {
 
 // Retrieve all Users from the database (with condition).
 exports.findAll = (req, res) => {
-  const title = req.query.title;
+  const alphabet = req.query.alphabet;
 
-  level_user.getAll(title, (err, data) => {
+  Word.getAll(alphabet, (err, data) => {
     if (err)
       res.status(500).send({
         message:
@@ -42,7 +44,7 @@ exports.findAll = (req, res) => {
 
 // Find a single User by Id
 exports.findOne = (req, res) => {
-    Level_user.findById(req.params.id, (err, data) => {
+    Word.findById(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -57,20 +59,20 @@ exports.findOne = (req, res) => {
   });
 };
 
-exports.findUserLevel = (req, res) => {
-  Level_user.findByIdUser(req.params.id_user, (err, data) => {
-  if (err) {
-    if (err.kind === "not_found") {
-      res.status(404).send({
-        message: `Not found User with id ${req.params.id_user}.`
-      });
-    } else {
-      res.status(500).send({
-        message: "Error retrieving User with id " + req.params.id_user
-      });
-    }
-  } else res.send(data);
-});
+exports.findByAlphabet = (req, res) => {
+    Word.findByAlphabet(req.params.alphabet, (err, data) => {
+    if (err) {
+      if (err.kind === "not_found") {
+        res.status(404).send({
+          message: `Not found User with id ${req.params.alphabet}.`
+        });
+      } else {
+        res.status(500).send({
+          message: "Error retrieving User with id " + req.params.alphabet
+        });
+      }
+    } else res.send(data);
+  });
 };
 
 // Update a User identified by the id in the request
@@ -84,9 +86,9 @@ exports.update = (req, res) => {
 
   console.log(req.body);
 
-  Level_user.updateById(
+  Word.updateById(
     req.params.id,
-    new Level_user(req.body),
+    new Word(req.body),
     (err, data) => {
       if (err) {
         if (err.kind === "not_found") {
@@ -105,7 +107,7 @@ exports.update = (req, res) => {
 
 // Delete a User with the specified id in the request
 exports.delete = (req, res) => {
-    Level_user.remove(req.params.id, (err, data) => {
+    Word.remove(req.params.id, (err, data) => {
     if (err) {
       if (err.kind === "not_found") {
         res.status(404).send({
@@ -122,7 +124,7 @@ exports.delete = (req, res) => {
 
 // Delete all users from the database.
 exports.deleteAll = (req, res) => {
-    Level_user.removeAll((err, data) => {
+    Word.removeAll((err, data) => {
     if (err)
       res.status(500).send({
         message:
